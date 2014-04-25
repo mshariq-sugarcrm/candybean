@@ -41,6 +41,8 @@ import java.util.concurrent.Future;
 import java.util.concurrent.ThreadFactory;
 import java.util.logging.Logger;
 import javax.xml.bind.JAXBException;
+
+import org.apache.maven.surefire.shade.org.apache.maven.shared.utils.StringUtils;
 import org.junit.Test;
 import org.junit.runner.notification.RunNotifier;
 import org.junit.runners.BlockJUnit4ClassRunner;
@@ -74,10 +76,10 @@ public class VRunner extends BlockJUnit4ClassRunner {
 		super(klass);
 		try {
 			candybean = Candybean.getInstance();
-			boolean parallelTests = Boolean.parseBoolean(candybean.config.getValue("parallel.enabled","false"));
-			if (parallelTests) {
-				setScheduler(new NonBlockingAsynchronousRunner(Integer.parseInt(Candybean.getInstance().config.getValue("parallel.threads", "4"))));
-			}
+//			boolean parallelTests = Boolean.parseBoolean(candybean.config.getValue("parallel.enabled","false"));
+//			if (parallelTests) {
+//				setScheduler(new NonBlockingAsynchronousRunner(Integer.parseInt(Candybean.getInstance().config.getValue("parallel.threads", "4"))));
+//			}
 		} catch (CandybeanException e1) {
 			logger = Logger.getLogger(VRunner.class.getSimpleName());
 			logger.severe("Unable to instantiate candybean.");
@@ -203,14 +205,22 @@ public class VRunner extends BlockJUnit4ClassRunner {
     @Override
     public void run(final RunNotifier notifier) {
     	try {
-			notifier.addFirstListener(TestRecorder.getInstance());
-		} catch (SecurityException e) {
-			logger.info("Unable to instantiate test recorder");
-		} catch (IOException e) {
-			logger.info("Unable to instantiate test recorder");
-		} catch (JAXBException e) {
-			logger.info("Unable to instantiate test recorder");
+    		String currentThreadName = Thread.currentThread().getName();
+			String wantedThreadName = currentThreadName.substring(currentThreadName.lastIndexOf("-")+1);
+			Thread.currentThread().setName(wantedThreadName);
+		} catch (Exception e) {
+			logger.info("Unable to change thread name");
 		}
+		logger.info("Thread name set to:" + StringUtils.capitalise(Thread.currentThread().getName()));
+//    	try {
+//			notifier.addFirstListener(TestRecorder.getInstance());
+//		} catch (SecurityException e) {
+//			logger.info("Unable to instantiate test recorder");
+//		} catch (IOException e) {
+//			logger.info("Unable to instantiate test recorder");
+//		} catch (JAXBException e) {
+//			logger.info("Unable to instantiate test recorder");
+//		}
     	super.run(notifier);
     }
     
