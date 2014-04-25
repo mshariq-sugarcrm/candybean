@@ -23,13 +23,9 @@ package com.sugarcrm.candybean.configuration;
 
 import java.io.*;
 import java.util.Enumeration;
-import org.json.simple.JSONObject;
-
-import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Logger;
 import com.sugarcrm.candybean.utilities.Utils;
-import org.json.simple.parser.JSONParser;
 
 /**
  * Configuration is an object that represents a set of key-value pairs.
@@ -156,45 +152,45 @@ public class Configuration {
 
     private void load(InputStream in) throws IOException {
         this.properties.load(in);
-        String platform = Utils.getCurrentPlatform();
+ //       String platform = Utils.getCurrentPlatform();
         Enumeration<?> e = properties.propertyNames();
         while (e.hasMoreElements()) {
             String key = (String) e.nextElement();
             String value = properties.getProperty(key);
-            JSONParser parser = new JSONParser();
-            String newValue;
-            try {
-                Object valueObject = parser.parse(value);
-                //get value for current platform key
-                if (valueObject instanceof Map) {
-                    JSONObject valueMap = (JSONObject) valueObject;
-                    newValue = (String) valueMap.get(platform);
-                } else {
-                    newValue = value;
-                }
-            } catch (Exception pe) {
-                //parsedString is not a smartValue/json object.
-                newValue = value;
-            }
-            properties.setProperty(key, newValue);
+//            JSONParser parser = new JSONParser();
+//            String newValue;
+//            try {
+//                Object valueObject = parser.parse(value);
+//                //get value for current platform key
+//                if (valueObject instanceof Map) {
+//                    JSONObject valueMap = (JSONObject) valueObject;
+//                    newValue = (String) valueMap.get(platform);
+//                } else {
+//                    newValue = value;
+//                }
+//            } catch (Exception pe) {
+//                //parsedString is not a smartValue/json object.
+//                newValue = value;
+//            }
+            properties.setProperty(key, value);
         }
     }
     
     public static String getPlatformValue(Properties props, String key) {
-	    String platform = Utils.getCurrentPlatform();
+//	    String platform = Utils.getCurrentPlatform();
 	    String valueStr = props.getProperty(key);
-        JSONParser parser = new JSONParser();
-        try {
-            Object valueObject = parser.parse(valueStr);
-            if (valueObject instanceof Map) {
-                JSONObject valueMap = (JSONObject) valueObject;
-                return (String) valueMap.get(platform);
-            } else {
+//        JSONParser parser = new JSONParser();
+//        try {
+//            Object valueObject = parser.parse(valueStr);
+//            if (valueObject instanceof Map) {
+//                JSONObject valueMap = (JSONObject) valueObject;
+//                return (String) valueMap.get(platform);
+//            } else {
                 return valueStr;
-            }
-        } catch (Exception pe) {
-            return valueStr;
-        }
+//            }
+//        } catch (Exception pe) {
+//            return valueStr;
+//        }
     }
 
     /**
