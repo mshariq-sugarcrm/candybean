@@ -1,5 +1,5 @@
 /**
- * Candybean is a next generation automation and testing framework suite.
+] * Candybean is a next generation automation and testing framework suite.
  * It is a collection of components that foster test automation, execution
  * configuration, data abstraction, results illustration, tag-based execution,
  * top-down and bottom-up batches, mobile variants, test translation across
@@ -204,14 +204,14 @@ public class VRunner extends BlockJUnit4ClassRunner {
 	 */
     @Override
     public void run(final RunNotifier notifier) {
-    	try {
-    		String currentThreadName = Thread.currentThread().getName();
-			String wantedThreadName = currentThreadName.substring(currentThreadName.lastIndexOf("-")+1);
-			Thread.currentThread().setName(wantedThreadName);
-		} catch (Exception e) {
-			logger.info("Unable to change thread name");
-		}
-		logger.info("Thread name set to:" + StringUtils.capitalise(Thread.currentThread().getName()));
+//    	try {
+//    		String currentThreadName = Thread.currentThread().getName();
+//			String wantedThreadName = currentThreadName.substring(currentThreadName.lastIndexOf("-")+1);
+//			Thread.currentThread().setName(wantedThreadName);
+//		} catch (Exception e) {
+//			logger.info("Unable to change thread name");
+//		}
+//		logger.info("Thread name set to:" + StringUtils.capitalise(Thread.currentThread().getName()));
 //    	try {
 //			notifier.addFirstListener(TestRecorder.getInstance());
 //		} catch (SecurityException e) {
