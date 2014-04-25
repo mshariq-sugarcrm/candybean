@@ -30,7 +30,6 @@ import java.util.Properties;
 import java.util.logging.Logger;
 import com.sugarcrm.candybean.utilities.Utils;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 /**
  * Configuration is an object that represents a set of key-value pairs.
@@ -173,7 +172,7 @@ public class Configuration {
                 } else {
                     newValue = value;
                 }
-            } catch (ParseException pe) {
+            } catch (Exception pe) {
                 //parsedString is not a smartValue/json object.
                 newValue = value;
             }
@@ -193,7 +192,7 @@ public class Configuration {
             } else {
                 return valueStr;
             }
-        } catch (ParseException pe) {
+        } catch (Exception pe) {
             return valueStr;
         }
     }
