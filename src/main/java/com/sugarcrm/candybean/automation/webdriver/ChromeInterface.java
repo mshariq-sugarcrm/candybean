@@ -1,8 +1,6 @@
 package com.sugarcrm.candybean.automation.webdriver;
 
 import java.io.File;
-
-import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
@@ -22,7 +20,11 @@ public class ChromeInterface extends WebDriverInterface {
 		chromeOptions.addArguments("--log-path=" + chromeDriverLogPath);
 		String chromeDriverPath = candybean.config.getPathValue("browser.chrome.driver.path");
 		logger.info("chromeDriverPath: " + chromeDriverPath);
-		if(StringUtils.isEmpty(chromeDriverPath) || !new File(chromeDriverPath).exists()){
+		File driver = null;
+		if(!chromeDriverPath.isEmpty()) {
+			driver = new File(chromeDriverPath);
+		}
+		if(driver == null){
 			String error = "Unable to find chrome browser driver from the specified location ("+chromeDriverPath+")  in the configuration file! \n"
 					+ "Please add a configuration to the candybean config file for key \"browser.chrome.driver.path\" "
 					+ "that indicates the absolute or relative location the driver.";
