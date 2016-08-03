@@ -6,6 +6,7 @@ import java.util.logging.FileHandler;
 import java.util.logging.Logger;
 
 import com.sugarcrm.candybean.automation.webdriver.*;
+
 import org.apache.commons.lang3.StringUtils;
 import org.openqa.selenium.remote.DesiredCapabilities;
 
@@ -165,7 +166,9 @@ public class AutomationInterfaceBuilder {
 			iface = new InternetExplorerInterface();
 			break;
 		case SAFARI:
-			throw new CandybeanException("Selenium: SAFARI interface type not yet supported");
+			//throw new CandybeanException("Selenium: SAFARI interface type not yet supported");
+			iface = new SafariBrowserInterface();
+			break;
 		case ANDROID:
 			if(isAndroidFullyConfigured(true)) {
 				capabilities = new DesiredCapabilities();
